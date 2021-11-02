@@ -31,7 +31,7 @@ function preload() {
   engine = loadSound("Sounds/Engine.mp3");
   back = loadSound("Sounds/back.mp3");
   //interactive sounds
-  hit = loadSound("Sounds/Over.mp3");
+  hit = loadSound("Sounds/over.mp3");
   achieve = loadSound("Sounds/achieve.mp3");
   achieve2 = loadSound("Sounds/achieve2.mp3");
 }
