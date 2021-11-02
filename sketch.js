@@ -1,6 +1,6 @@
 //defining variables
 var driver, car, bgimg, bg, ride1img, ride2img, ride3img, right, left, engine, rideGroup, carGroup, obs1, obs2, obs3, obs4, ride3, circle, rideGroup2;
-var back, game, hit, achieve, achieve2, dropimg, dropGroup, drop, drop2, ride1, ride2, ride3, ride4, ride, heart, life, leftBT,rightBT,fwdBT,bwdBT;
+var back, game, hit, achieve, achieve2, dropimg, dropGroup, drop, drop2, ride1, ride2, ride3, ride4, ride, heart, life, leftBT, rightBT, fwdBT, bwdBT;
 var rides = 0;
 var completed = 0;
 var death = 0;
@@ -60,23 +60,26 @@ function setup() {
   life3 = createSprite(width / 10, height / 6.5);
   life3.addImage(heart);
   life3.scale = width / 5000;
-//buttons
-//left side buttons
-  leftBT = createSprite(width/18,height/1.042, width/4);
-  leftBT.shapeColor = "lightBlue"
-  leftBT.scale = width/800;
+  //buttons
+  //Right side buttons
+  rightBT = createButton("Right");
+  rightBT.size(80, 50);
+  rightBT.position(windowWidth / 1.28, windowHeight / 1.08);
 
-  rightBT = createSprite(width/18,height/1.15,width/4);
-  rightBT.shapeColor = "lightBlue"
-  rightBT.scale = width/800;
-//right buttons
-  fwdBT = createSprite(width/1.06,height/1.04,width/4);
-  fwdBT.shapeColor = "lightBlue"
-  fwdBT.scale = width/800;
+  leftBT = createButton("Left");
+  leftBT.size(80, 50);
+  leftBT.position(windowWidth / 1.28, windowHeight / 1.18);
+  
+  //Left side buttons
+  fwdBT = createButton("Forward");
+  fwdBT.size(80, 50);
+  fwdBT.position(windowWidth / 1000, windowHeight / 1.08);
+  
 
-  bwdBT = createSprite(width/1.06,height/1.15,width/4);
-  bwdBT.shapeColor = "lightBlue"
-  bwdBT.scale = width/800;
+  bwdBT = createButton("Backward");
+  bwdBT.size(80, 50)
+  bwdBT.position(windowWidth / 1000, windowHeight / 1.18);
+  
   //groups
   rideGroup = new Group();
   carGroup = new Group();
@@ -94,12 +97,19 @@ function draw() {
   //Play state
   if (death < 3) {
 
-    if(leftBT.isPressed){
-      driver.velocityX -=3;
-    }
-    
-    //giving condition for picking a ride
-    for (var i = 0; i < rideGroup2.length; i++) {
+    //giving functions to the buttons for movement
+    rightBT.mousePressed(Right);
+    leftBT.mousePressed(Left);
+    fwdBT.mousePressed(Forw);
+    bwdBT.mousePressed(Back);
+    //giving stop function to the buttons
+    rightBT.mouseReleased(RStop);
+    leftBT.mouseReleased(LStop);
+    fwdBT.mouseReleased(FStop);
+    bwdBT.mouseReleased(BStop);
+
+      //giving condition for picking a ride
+      for(var i = 0; i < rideGroup2.length; i++) {
       if (rideGroup2[i].isTouching(driver)) {
         if (rides < 4) {
           rideGroup2[i].destroy();
@@ -125,6 +135,8 @@ function draw() {
         completed++;
       }
     }
+
+
     //function for not to touch other car
     driver.collide(carGroup, crash);
     //gicing condition for hearts
@@ -183,14 +195,40 @@ function draw() {
   text("current rides: " + rides, width / 100, height / 30);
   text("completed rides: " + completed, width / 100, height / 20);
   pop();
-push();
-textSize(width/45);
-fill("darkBlue")
-  text("Left",width/50,height/1.04);
-  text("Right",width/50,height/1.15);
-  text("Forwad",width/1.1,height/1.04);
-  text("Backward",width/1.12,height/1.15);
-pop();
+}
+//movement functions for buttons 
+function Right() {
+  driver.velocityX += 3;
+  engine.play();
+}
+function Left() {
+  driver.velocityX -= 3;
+  engine.play();
+}
+function Back() {
+  driver.velocityY += 3;
+  engine.play();
+}
+function Forw() {
+  driver.velocityY -= 3;
+  engine.play();
+}
+//stop funtion for buttons
+function RStop(){
+  driver.velocityX =0;
+  engine.stop();
+}
+function FStop(){
+  driver.velocityY =0;
+  engine.stop();
+}
+function BStop(){
+  driver.velocityY =0;
+  engine.stop();
+}
+function LStop(){
+  driver.velocityX =0;
+  engine.stop();
 }
 
 //function for driver colliding with other car
