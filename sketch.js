@@ -97,16 +97,18 @@ function draw() {
   //Play state
   if (death < 3) {
 
+    
+
     //giving functions to the buttons for movement
-    rightBT.mousePressed(Right);
-    leftBT.mousePressed(Left);
-    fwdBT.mousePressed(Forw);
-    bwdBT.mousePressed(Back);
+    rightBT.mouseOver(Right);
+    leftBT.mouseOver(Left);
+    fwdBT.mouseOver(Forw);
+    bwdBT.mouseOver(Back);
     //giving stop function to the buttons
-    rightBT.mouseReleased(RStop);
-    leftBT.mouseReleased(LStop);
-    fwdBT.mouseReleased(FStop);
-    bwdBT.mouseReleased(BStop);
+    rightBT.mouseOut(RStop);
+    leftBT.mouseOut(LStop);
+    fwdBT.mouseOut(FStop);
+    bwdBT.mouseOut(BStop);
 
       //giving condition for picking a ride
       for(var i = 0; i < rideGroup2.length; i++) {
